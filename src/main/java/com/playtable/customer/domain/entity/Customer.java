@@ -1,9 +1,7 @@
 package com.playtable.customer.domain.entity;
 
 import com.playtable.customer.domain.request.CustomerRequest;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -13,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder @Getter
 public class Customer {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
     private String name;
     private String nickName;
@@ -21,9 +19,9 @@ public class Customer {
     private String profileUrl;
 
     public void update(CustomerRequest request) {
-        this.name = name;
-        this.nickName = nickName;
-        this.contact = contact;
-        this.profileUrl = profileUrl;
+        this.name = request.getName();
+        this.nickName = request.getNickName();
+        this.contact = request.getContact();
+        this.profileUrl = request.getProfileUrl();
     }
 }
